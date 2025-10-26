@@ -103,9 +103,97 @@
             <button><img src="svgs/globe.svg" alt="" />English</button>
           </div>
         </div>
-        <div class="right">dwddwdwddw</div>
+        <div class="right">
+            <div id="default-view" class = "main-content-view active">
+                <h2>Trending Songs</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed qui sequi sit nisi beatae, quas, sint consequatur, labore tempora error voluptas porro molestias.</p>
+            </div>
+
+            <div id="search-view" class="main-content-view">
+                <nav class="filter-nav">
+                    <button class="filter-button active" data-target="all-content">All</button>
+                    <button class="filter-button" data-target="artists-content">Artists</button>
+                    <button class="filter-button" data-target="songs-content">Songs</button>
+                    <button class="filter-button" data-target="profiles-content">Profiles</button>
+                </nav>
+
+                <div class="content-area">
+                    <div id = "all-content" class="content-section active">
+                        <h3>Top Result</h3>
+                        <p>( 'Top Result'  goes here...)</p>
+                        <hr />
+                        <h3>Artists</h3>
+                        <p>( 'Artists' row  goes here...)</p>
+                        <hr />
+                        <h3>Songs</h3>
+                        <p>( 'Songs' list  goes here...)</p>
+                    </div>
+                    <div id="artists-content" class="content-section">
+                        <h3>Artists</h3>
+                        <p>artists row---></p>
+                    </div>
+                    <div id="songs-content" class="content-section">
+                        <h3>Songs</h3>
+                        <p>songs row go here --></p>
+                    </div>
+                    <div id="profiles-content" class="content-section">
+                        <h3>Profiles</h3>
+                        <p>profiles row go here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
       <footer>Copyright</footer>
     </div>
-  </body>
+
+</body>
+<script src="script.js"></script>
 </html>
+
+
+
+
+
+<!-- <nav class="filter-nav">
+            <button class="filter-button active" data-target="all-content">
+              All
+            </button>
+            <button class="filter-button" data-target="artists-content">
+              Artists
+            </button>
+            <button class="filter-button" data-target="songs-content">
+              Songs
+            </button>
+            <button class="filter-button" data-target="profiles-content">
+              Profiles
+            </button>
+          </nav>
+
+          <div class="content-area">
+            <div id="all-content" class="content-section active">
+              <h3>Top Result</h3>
+              <p>(Your 'Top Result' component goes here...)</p>
+              <hr />
+              <h3>Artists</h3>
+              <p>(Your 'Artists' row component goes here...)</p>
+              <hr />
+              <h3>Songs</h3>
+              <p>(Your 'Songs' list component goes here...)</p>
+            </div>
+
+            <div id="artists-content" class="content-section">
+              <h3>Artists</h3>
+              <p>(Your 'Artists' row component goes here...)</p>
+            </div>
+
+            <div id="songs-content" class="content-section">
+              <h3>Songs</h3>
+              <p>(Your 'Songs' list component goes here...)</p>
+            </div>
+
+            <div id="profiles-content" class="content-section">
+              <h3>Profiles</h3>
+              <p>(Your 'Profiles' list component goes here...)</p>
+            </div>
+          </div> -->
