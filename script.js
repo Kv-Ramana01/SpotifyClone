@@ -42,4 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
       target_content.classList.add("active");
     });
   });
+
+
+  const rightContainer = document.querySelector(".right");
+  let scrollTimer; // This variable will hold our timer
+
+  rightContainer.addEventListener("scroll", () => {
+    
+    // 1. Add the class to show the scrollbar
+    rightContainer.classList.add("is-scrolling");
+
+    // 2. Clear any existing timer.
+    // This stops the scrollbar from fading out while you're still scrolling.
+    clearTimeout(scrollTimer);
+
+    // 3. Set a new timer to remove the class after 1 second (1000ms)
+    // This runs 1 second after you've *stopped* scrolling.
+    scrollTimer = setTimeout(() => {
+      rightContainer.classList.remove("is-scrolling");
+    }, 1000); // 1-second delay
+  });
 });
