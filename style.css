@@ -1,0 +1,142 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.main-container{
+    background-color: #121212;
+    color: white;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation-bar{
+    height: 8vh;
+    display: flex;
+}
+
+.logo{
+    flex: 1;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.secondary-container{
+    display: flex;
+    gap:10px;
+    flex: 1;
+    width: 100%;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 25%;
+    padding: 20px;
+    border-radius: 5px;
+    /* border: 2px solid transparent; */
+    /* background: linea-gradient(to left, #121212, #303131); */
+    background-color: #1817179a;
+    
+}
+
+.lib-title{
+    padding: 10px;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-self: space-between;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+
+}
+
+.lib-button{
+    margin-left: auto;
+    background:transparent;
+    text-decoration: none;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    /* padding-bottom: 6px; */
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.lib-button:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    color: gray;
+    background-color: gray;
+}
+
+.playlist-card,.podcast-card{
+    background-color: rgba(128, 128, 128, 0.13);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    gap: 20px;
+
+    p{
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+}
+
+
+.playlist-button,.podcast-button{
+    /* flex:1; */
+    max-width: 140px;
+    min-width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playlist-button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.podcast-button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+
+
+.right{
+    width: 75%;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background: linear-gradient(to left, #121212, #1e1f1f);
+    /* overflow-y: scroll; */
+}
+
+footer{
+    height: 10vh;
+    /* border-top: 1px solid gray; */
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    background-color: #1817179a;
+    justify-content: center;
+
+}
