@@ -1,142 +1,383 @@
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-.main-container{
-    background-color: #121212;
-    color: white;
-    min-height: 100vh;
-    min-width: 100vw;
-    display: flex;
-    flex-direction: column;
+.main-container {
+  background-color: #121212;
+  color: white;
+  min-height: 100vh;
+  max-height: 100%;
+  min-width: 100vw;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.navigation-bar{
-    height: 8vh;
-    display: flex;
+.navigation-bar {
+  min-height: 8vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.logo{
-    flex: 1;
-    display: flex;
-    width: 50px;
-    height: 50px;
-    align-items: center;
-    padding-left: 20px;
+.home-button {
+  margin-left: auto;
+  background-color: #202020;
+  border-radius: 50px;
+  border: none;
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.secondary-container{
-    display: flex;
-    gap:10px;
-    flex: 1;
-    width: 100%;
+.home-button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  background-color: rgb(51, 49, 49);
 }
 
-.left{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 25%;
-    padding: 20px;
-    border-radius: 5px;
-    /* border: 2px solid transparent; */
-    /* background: linea-gradient(to left, #121212, #303131); */
-    background-color: #1817179a;
-    
+.search-bar {
+  margin-right: 75px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  background-color: rgb(43, 43, 43);
+  height: 50px;
+  padding-left: 10px;
+  gap: 7px;
+  border-radius: 50px;
+  max-width: 600px;
+  width: 600px;
+  min-width: 400px;
+  border: 3px solid transparent;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.lib-title{
-    padding: 10px;
-    height: 50px;
-    width: 100%;
-    display: flex;
-    justify-self: space-between;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 30px;
-
+.search-bar:hover {
+  background-color: rgb(48, 48, 48);
+  outline: 1px solid grey;
 }
 
-.lib-button{
-    margin-left: auto;
-    background:transparent;
-    text-decoration: none;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    /* padding-bottom: 6px; */
-    width: 50px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-     transition: transform 0.3s ease, box-shadow 0.3s ease;
-
+.search-bar:hover input[type="text"] {
+  background-color: rgb(48, 48, 48);
 }
 
-.lib-button:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-    color: gray;
-    background-color: gray;
+.search-bar button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: rgb(104, 104, 104);
+  padding-right: 20px;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-.playlist-card,.podcast-card{
-    background-color: rgba(128, 128, 128, 0.13);
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border-radius: 10px;
+.search-bar button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+}
 
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    gap: 20px;
+.search-bar:has(input[type="text"]:focus) {
+  transform: scale(1.015);
+  border: 3px solid white;
+  outline: none;
+}
 
-    p{
-        font-size: 1.1em;
-        font-weight: 600;
-    }
+.search-bar span {
+  font-size: 2em;
+  color: #777777;
+}
+
+input[type="text"] {
+  /* flex: 1; */
+  margin-right: auto;
+  border: none;
+  background-color: rgb(43, 43, 43);
+  text-decoration: none;
+  height: 30px;
+  max-width: 600px;
+  width: 500px;
+  min-width: 300px;
+  color: white;
+  font-size: 1.1em;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  font-weight: bold;
+}
+
+.logo {
+  /* flex: 1; */
+  display: flex;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.navigation-tools {
+  display: flex;
+  gap: 10px;
+}
+
+.navigation-tools a {
+  text-decoration: none;
+  color: rgb(139, 136, 136);
+  font-size: 1.2em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navigation-tools a:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  color: white;
+}
+
+.nav-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em;
+  margin-right: 20px;
+}
+
+.sign-up {
+  padding-right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.sign-up a {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-decoration: none;
+  color: rgb(150, 150, 150);
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sign-up a:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+.sign-up button {
+  background-color: white;
+  min-width: 90px;
+  width: 120px;
+  border-radius: 50px;
+  height: 50px;
+  font-size: large;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sign-up button a {
+  color: black;
+  font-weight: 600;
+}
+
+.sign-up button a:hover {
+  color: black;
+}
+
+.sign-up button:hover {
+  transform: scale(1.05);
+}
+
+.install {
+  font-weight: 600;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-decoration: none;
+  color: rgb(160, 160, 160);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.install:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+.secondary-container {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  width: 100%;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 25%;
+  padding: 20px;
+  border-radius: 5px;
+  /* border: 2px solid transparent; */
+  /* background: linea-gradient(to left, #121212, #303131); */
+  background-color: #1817179a;
+}
+
+.lib-title {
+  padding: 10px;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-self: space-between;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.lib-button {
+  margin-left: auto;
+  background: transparent;
+  text-decoration: none;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  /* padding-bottom: 6px; */
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lib-button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  color: gray;
+  background-color: gray;
+}
+
+.playlist-card,
+.podcast-card {
+  background-color: rgba(128, 128, 128, 0.13);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  gap: 20px;
+}
+
+.playlist-card p,
+.podcast-card p {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.playlist-button,
+.podcast-button {
+  /* flex:1; */
+  max-width: 140px;
+  min-width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playlist-button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.podcast-button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.links {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.links a {
+  text-decoration: none;
+  color: white;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: small;
+}
+
+.links .first {
+  padding-left: 10px;
+  margin-right: 16px;
+  max-width: 320px;
+  max-height: 130px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.links .second {
+  padding-left: 10px;
+}
+
+.links .second a {
+  font-weight: 600;
+}
+
+.links img {
+  padding-left: 15px;
+}
+
+.links button {
+  font-weight: 600;
+  font-size: 1em;
+  background-color: #121212;
+  border: 3px solid transparent;
+  outline: 2px solid rgb(94, 88, 88);
+  border-radius: 50px;
+  color: white;
+  max-width: 130px;
+  min-width: 90px;
+  max-height: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  /* justify-content: space-evenly; */
+  padding-top: 8px;
+  padding-bottom: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.links button:hover {
+  border: 3px solid white;
+  outline: none;
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.right {
+  width: 75%;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background: linear-gradient(to left, #121212, #1e1f1f);
+  /* overflow-y: scroll; */
+}
+
+footer {
+  height: 10vh;
+  /* border-top: 1px solid gray; */
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  background-color: #1817179a;
+  justify-content: center;
 }
 
 
-.playlist-button,.podcast-button{
-    /* flex:1; */
-    max-width: 140px;
-    min-width: 80px;
-    height: 40px;
-    border-radius: 20px;
-    font-weight: 600;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.playlist-button:hover{
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-.podcast-button:hover{
-    cursor: pointer;
-    transform: scale(1.1);
-}
-
-
-
-.right{
-    width: 75%;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    background: linear-gradient(to left, #121212, #1e1f1f);
-    /* overflow-y: scroll; */
-}
-
-footer{
-    height: 10vh;
-    /* border-top: 1px solid gray; */
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    background-color: #1817179a;
-    justify-content: center;
-
-}
