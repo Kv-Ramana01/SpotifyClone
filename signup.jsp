@@ -100,29 +100,35 @@
 
 %>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up and listen to unlimited music!</title>
-    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
     <link rel="stylesheet" href="utility.css" />
 
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
       .signup-container {
-        max-width: 100vw;
-        min-height: 100vh; 
-        max-height: 100%;
+        width: 100%;
+        min-height: 100vh;
+        /* max-height: 100%; */
         display: flex;
+        padding: 20px 20px;
         flex-direction: column;
         /* justify-content: center; */
-        padding: 100px;
+        /* padding: 100px; */
         align-items: center;
         background-color: #121212;
         gap: 10px;
+        box-sizing: border-box;
       }
 
       .logo {
@@ -133,7 +139,7 @@
         margin-bottom: 20px;
       }
 
-      .heading{
+      .heading {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -143,7 +149,7 @@
       }
 
       .heading h1 {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
         color: white;
         font-size: 3.5em;
         font-weight: 1000;
@@ -168,7 +174,7 @@
       }
 
       .signup-form label {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
         color: white;
         font-size: 1.3em;
         font-weight: 600;
@@ -176,54 +182,54 @@
       }
 
       .signup-form input {
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid transparent;
-            outline: 1px solid #888;
-            background-color: #121212;
-            width: 380px;
-            height: 50px;
-            color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid transparent;
+        outline: 1px solid #888;
+        background-color: #121212;
+        width: 380px;
+        height: 50px;
+        color: white;
+      }
+      
+      .signup-form button {
+        padding: 10px;
+        border-radius: 20px;
+        background-color: rgb(57, 235, 66);
+        color: black;
+        font-weight: 800;
+        font-size: 1.2em;
+        width: 200px;
+        height: 50px;
+        cursor: pointer;
+      }
 
-        }
-        .signup-form button {
-            padding: 10px;
-            border-radius: 20px;
-            background-color: rgb(57, 235, 66);
-            color: black;
-            font-weight: 800;
-            font-size: 1.2em;
-            width: 200px;
-            height: 50px;
-            cursor: pointer;
-        }
+      .terms-text {
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        color: #888;
+        font-size: 0.9em;
+        text-align: center;
+      }
 
-        .terms-text {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            color: #888;
-            font-size: 0.9em;
-            text-align: center;
-        }
+      .terms-text a {
+        color: white;
+        text-decoration: underline;
+      }
 
-        .terms-text a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .login-text {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            color: #888;
-            font-size: 1em;
-            text-align: center;
-        }
-        .login a {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            color: white;
-            font-size: 1em;
-            text-align: center;
-            text-decoration: underline;
-            cursor: pointer;
-        }
+      .login-text {
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        color: #888;
+        font-size: 1em;
+        text-align: center;
+      }
+      .login a {
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        color: white;
+        font-size: 1em;
+        text-align: center;
+        text-decoration: underline;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -250,7 +256,12 @@
       <div class="signup-box">
         <form action="signup.jsp" method="post" class="signup-form">
           <label for="username">Username</label>
-          <input type="text" name="username" placeholder="Username" required />
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+          />
 
           <label for="email">Email</label>
           <input type="email" name="email" placeholder="Email" required />
@@ -268,11 +279,9 @@
         <p class="terms-text">
           By signing up, you agree to our <a href="#">Terms & Conditions</a>.
         </p>
-        <p class="login-text">
-          Already have an account?
-        </p>
+        <p class="login-text">Already have an account?</p>
         <p class="login">
-            <a href="login.jsp">Log In</a>
+          <a href="login.jsp">Log In</a>
         </p>
       </div>
     </div>
