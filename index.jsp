@@ -1,3 +1,16 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+
+<%
+  String username = null;
+
+  if(session.getAttribute("username")!=null){
+    username = (String) session.getAttribute("username");
+  }
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -65,10 +78,25 @@
               ></path></svg
             >Install App</a
           >
-          <a href="">Sign up</a>
+
+          <%
+            if(username!=null){
+          %>
+          <a href="#">Welcome, <%= username %></a>
           <button>
-            <a href="">Log in</a>
+            <a href="logout.jsp">Log out</a>
           </button>
+          <%
+            }else{
+          %>
+          <a href="signup.jsp">Sign up</a>
+          <button>
+            <a href="login.jsp">Log in</a>
+          </button>
+
+          <%
+            }
+          %>
         </div>
       </nav>
       <div class="secondary-container">
@@ -156,6 +184,12 @@
           </div>
         </div>
       </div>
+
+      <%
+
+      if(username == null){
+
+      %>
       <footer>
         <div>
           <div><p>Preview of Spotify</p></div>
@@ -167,8 +201,13 @@
           </div>
         </div>
         <!-- <p>This page was loaded on: <%= new java.util.Date() %></p> -->
-        <button>Sign up</button>
+        <button><a href="signup.jsp">Sign up</a></button>
       </footer>
+
+      <% 
+        }
+
+      %>
     </div>
   </body>
   <script src="script.js"></script>
