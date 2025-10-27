@@ -1,7 +1,37 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
 
+<!-- //referenced from gemini to implement password hashing. -->
+<%@ page import="java.security.MessageDigest" %>
+<%@ page import="java.math.BigInteger" %>
+<%@ page import="java.nio.charset.StandardCharsets" %>
+
+<%!
+
+    public String hashPassword(String password) throws Exception{
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+            //getting hash's bytes
+            byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+            //Converting byte array into signum representation
+            BigInteger number = new BigInteger(1, hash);
+            
+            //converting message digest into hex value
+            StringBuilder hexString = new StringBuilder(number.toString(16));
+            
+            //Padding with leading zeroes -- so that 64 characters is preserved.
+            while(hexString.length() < 64) {
+                hexString.insert(0,'0');
+            }
+            
+            return hexString.toString();
+            
+        }
+%>
+
 <%
+
     //this checks if the form is submitted -- using request basically
     //we are checking if user has submitted the form or not
     //if the method we retrieve from the request is POST, then the form is submitted
@@ -12,10 +42,14 @@
         String dbPass = "Charlotte@1707";
 
         //now we will get the input tags from the input tags using request getParameter
-
+        
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+
         String password = request.getParameter("password");
+
+        String hashedPassword = hashPassword(password);
+
 
         //NOW WE will write the db logic
 
@@ -34,12 +68,13 @@
             ps = con.prepareStatement(sql);
             ps.setString(1,username);
             ps.setString(2,email);
-            ps.setString(3,password);
+            //ps.setString(3,password);
+            ps.setString(3,hashedPassword);
 
             int number_of_rows_affected = ps.executeUpdate();
 
             if(number_of_rows_affected > 0){
-                out.println("<script>alert('Signup successful!');</script>");
+                response.sendRedirect("login.jsp");
             }else{
                 out.println("<script>alert('Signup Failed. Please try again.');</script>");
             }
@@ -79,8 +114,8 @@
     <style>
       .signup-container {
         max-width: 100vw;
-        height: 100vh;
-        max-height: 100vh;
+        min-height: 100vh; 
+        max-height: 100%;
         display: flex;
         flex-direction: column;
         /* justify-content: center; */
@@ -215,7 +250,7 @@
       <div class="signup-box">
         <form action="signup.jsp" method="post" class="signup-form">
           <label for="username">Username</label>
-          <input type="txt" name="username" placeholder="Username" required />
+          <input type="text" name="username" placeholder="Username" required />
 
           <label for="email">Email</label>
           <input type="email" name="email" placeholder="Email" required />

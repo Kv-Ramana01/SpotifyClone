@@ -440,10 +440,6 @@ footer button:hover{
     transform: scale(1.05);
 }
 
-#default-view{
-
-}
-
 .main-content-view{
     display: none;
     padding: 20px;
