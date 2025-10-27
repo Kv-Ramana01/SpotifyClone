@@ -1,3 +1,72 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.*" %>
+
+<%
+    //this checks if the form is submitted -- using request basically
+    //we are checking if user has submitted the form or not
+    //if the method we retrieve from the request is POST, then the form is submitted
+    if(request.getMethod().equalsIgnoreCase("POST")){
+
+        String dbUrl = "jdbc:mysql://localhost:3306/spotify_clone";
+        String dbUser = "root";
+        String dbPass = "Charlotte@1707";
+
+        //now we will get the input tags from the input tags using request getParameter
+
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        //NOW WE will write the db logic
+
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try{
+            // loading the mysql driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            //establishing the connection
+            con = DriverManager.getConnection(dbUrl,dbUser,dbPass);
+
+            String sql = "INSERT INTO users (username, email, password_hash) VALUES (?,?,?)";
+
+            ps = con.prepareStatement(sql);
+            ps.setString(1,username);
+            ps.setString(2,email);
+            ps.setString(3,password);
+
+            int number_of_rows_affected = ps.executeUpdate();
+
+            if(number_of_rows_affected > 0){
+                out.println("<script>alert('Signup successful!');</script>");
+            }else{
+                out.println("<script>alert('Signup Failed. Please try again.');</script>");
+            }
+
+        }catch (Exception e) {
+            out.println("<script>alert('an error occurred: " + e.getMessage() + "');</script>");
+            e.printStackTrace();
+        } finally {
+            if (ps != null){
+                try{
+                    ps.close();
+                }catch (SQLException e){}
+            }
+
+            if(con != null){
+                try{
+                    con.close();
+                }catch(SQLException e){}
+            }
+        }
+
+    }
+
+%>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -79,6 +148,7 @@
             background-color: #121212;
             width: 380px;
             height: 50px;
+            color: white;
 
         }
         .signup-form button {

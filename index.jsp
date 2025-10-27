@@ -166,7 +166,7 @@
             >
           </div>
         </div>
-        <p>This page was loaded on: <%= new java.util.Date() %></p>
+        <!-- <p>This page was loaded on: <%= new java.util.Date() %></p> -->
         <button>Sign up</button>
       </footer>
     </div>
