@@ -176,7 +176,13 @@
             width: 200px;
             height: 50px;
             cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
+
+      .signup-form button:hover{
+        transform: scale(1.07);
+      }
+
       .login-text {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             color: #888;

@@ -375,8 +375,9 @@ input[type="text"]:focus {
   max-height: 100%;
   border-radius: 15px;
   display: flex;
+  flex-wrap: wrap;
   border: 2px solid transparent;
-  background: linear-gradient(165deg,#272828, #121212);
+  background: linear-gradient(165deg,#272828 1%, #131313 99%);
   overflow-y: scroll;
 }
 
