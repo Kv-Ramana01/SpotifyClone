@@ -133,13 +133,139 @@
         </div>
         <div class="right">
           <div id="default-view" class="main-content-view active">
-            <h2>Trending Songs</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed qui
-              sequi sit nisi beatae, quas, sint consequatur, labore tempora
-              error voluptas porro molestias.
-            </p>
-            <p>lorem10000</p>
+            <div class="Right-Header">
+            <h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Trending songs</h2>
+            </div>
+
+            <div class="music-list">
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02e60418359b299f1e237ee7da" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">Kufar</a></h3>
+                <p><a class="card-link" href="">Diljit Dosanjh</a>, <a class="card-link" href="">MixSingh</a>, <a class="card-link" href="">Raj Ranjodh</a></p>
+              </div>
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02a32964acd7f1f9d64ea59ff7" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i"> <button class="play-button">
+                    <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">JACKBOYS 2</a></h3>
+                <p><a class="card-link" href="">JACKBOYS</a>, <a class="card-link" href="">Travis Scott</a></p>
+              </div>
+
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02e9553ca116b587c8d3f59967" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+              
+                </div>
+                <h3><a class="card-link" href="">Sapphire</a></h3>
+                <p>2025 <a class="card-link" href="">Saquib Alam</a></p>
+              </div>
+              
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02b8a4fa0168c52aa15ca9f882" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">Montagem Supersonic</a></h3>
+                <p>2025 <a class="card-link" href="">KHAOS</a>, <a class="card-link" href="">Jmilton</a>, <a class="card-link" href="">Mc Jajau</a></p>
+              </div>
+
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02fba856252bdd84adf5025ba1" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">MONTAGEM SAMUS</a></h3>
+                <p>2025 <a class="card-link" href="">Kobe Mane</a>, <a class="card-link" href="">shvnxe</a></p>
+              </div>
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02e60418359b299f1e237ee7da" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">Kufar</a></h3>
+                <p><a class="card-link" href="">Diljit Dosanjh</a>, <a class="card-link" href="">MixSingh</a>, <a class="card-link" href="">Raj Ranjodh</a></p>
+              </div>
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02a32964acd7f1f9d64ea59ff7" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i"> <button class="play-button">
+                    <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">JACKBOYS 2</a></h3>
+                <p><a class="card-link" href="">JACKBOYS</a>, <a class="card-link" href="">Travis Scott</a></p>
+              </div>
+
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02e9553ca116b587c8d3f59967" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+              
+                </div>
+                <h3><a class="card-link" href="">Sapphire</a></h3>
+                <p>2025 <a class="card-link" href="">Saquib Alam</a></p>
+              </div>
+              
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02b8a4fa0168c52aa15ca9f882" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">Montagem Supersonic</a></h3>
+                <p>2025 <a class="card-link" href="">KHAOS</a>, <a class="card-link" href="">Jmilton</a>, <a class="card-link" href="">Mc Jajau</a></p>
+              </div>
+
+              <div class="card">
+                <div class="image">
+                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02fba856252bdd84adf5025ba1" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
+                  <button class="play-button">
+                  <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                  </svg>
+                  </button>
+                </div>
+                <h3><a class="card-link" href="">MONTAGEM SAMUS</a></h3>
+                <p>2025 <a class="card-link" href="">Kobe Mane</a>, <a class="card-link" href="">shvnxe</a></p>
+              </div>
+              
+            </div>
           </div>
 
           <div id="search-view" class="main-content-view">
