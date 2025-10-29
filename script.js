@@ -6,19 +6,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const homeButton = document.querySelector(".home-button");
   const defaultView = document.querySelector("#default-view");
   const searchView = document.querySelector("#search-view");
+  const search_closebtn = document.querySelector("#search-close-button")
 
   function showSearchView() {
     defaultView.classList.remove("active");
     searchView.classList.add("active");
+    search_closebtn.classList.add("active");
   }
 
   function showDefaultView() {
     defaultView.classList.add("active");
     searchView.classList.remove("active");
+    search_closebtn.classList.remove("active");
   }
 
   searchInput.addEventListener("focus", showSearchView);
   homeButton.addEventListener("click", showDefaultView);
+  search_closebtn.addEventListener("click", () => {
+    searchInput.value = "";
+    showDefaultView();
+  });
 
   //state management for filter buttons
 
@@ -62,4 +69,28 @@ document.addEventListener("DOMContentLoaded", () => {
       rightContainer.classList.remove("is-scrolling");
     }, 1000); // 1-second delay
   });
+
+  const hamburger = document.querySelector(".ham-icon");
+  const mobileNav = document.querySelector(".mobile-nav-panel");
+
+  if(hamburger && mobileNav){
+    hamburger.addEventListener("click",function(){
+      hamburger.classList.toggle("active");
+      mobileNav.classList.toggle("active");
+    })
+  }
+
+  // const hamburger = document.querySelector(".hamburger-menu");
+  // const mobileNav = document.querySelector(".mobile-nav-panel");
+
+  // if (hamburger && mobileNav) {
+  //   hamburger.addEventListener("click", function() {
+  //     // Toggle the 'active' class on both the hamburger and the nav panel
+  //     hamburger.classList.toggle("active");
+  //     mobileNav.classList.toggle("active");
+  //   });
+  // }
+
+
+  
 });

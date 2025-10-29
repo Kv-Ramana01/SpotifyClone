@@ -17,6 +17,7 @@
 }
 
 .navigation-bar {
+  display: flex;
   min-height: 8vh;
   width: 100%;
   display: flex;
@@ -57,6 +58,7 @@
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
+
 .search-bar:hover {
   background-color: rgb(48, 48, 48);
   outline: 1px solid grey;
@@ -82,10 +84,22 @@
   color: rgb(255, 255, 255);
 }
 
+#search-close-button{
+  display: none;
+}
+
+
+#search-close-button.active{
+  display: block;
+}
+
+
 .search-bar:has(input[type="text"]:focus) {
   transform: scale(1.015);
   border: 3px solid white;
   outline: none;
+
+
 }
 
 .search-bar span {
@@ -573,6 +587,8 @@ footer a{
   padding: 20px;
   max-height: 100%;
   width: 100%;
+  animation: fadeIn 0.3s ease-in-out;
+
   /* border: 3px solid red; */
 }
 
@@ -626,4 +642,150 @@ footer a{
     from { opacity: 0;}
     to { opacity: 1;}
 }
+
+
+.ham-icon{
+  display: none;
+  margin-right: 20px;
+}
+
+.ham-icon button{
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  border: none;
+
+
+}
+
+/* animation referred from gemini */
+
+.ham-icon button svg path {
+  /* It makes the lines rotate from their center, not the corner */
+  transform-origin: center;
+
+  /* This makes the animation smooth */
+  transition: all 0.3s ease-in-out;
+}
+
+.ham-icon.active button svg path:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+
+/* Middle bar: fade out */
+.ham-icon.active button svg path:nth-child(2) {
+  opacity: 0;
+}
+
+/* Bottom bar: move up 7px to the middle, then rotate */
+.ham-icon.active button svg path:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+
+.mobile-nav-panel{
+  display: none;
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  top: 8vh;
+  right: 0;
+  width: 250px;
+  background-color: #282828;
+  box-shadow: -5px 5px 15px rgba(0, 0, 0,0.5);
+  padding: 20px;
+  z-index: 1001;
+  flex-direction: column;
+  gap: 15px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.mobile-nav-panel:hover{
+  border: 2px solid rgb(37, 231, 19);
+}
+
+.mobile-nav-panel.active{
+  display: flex;
+}
+
+
+
+
+.mobile-nav-panel a {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-decoration: none;
+  color: rgb(150, 150, 150);
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-nav-panel a:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+.mobile-nav-panel button {
+  background-color: white;
+  min-width: 90px;
+  width: 120px;
+  border-radius: 50px;
+  height: 50px;
+  font-size: large;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-nav-panel button a {
+  color: black;
+  font-weight: 600;
+}
+
+.mobile-nav-panel button a:hover {
+  color: black;
+}
+
+.mobile-nav-panel button:hover {
+  transform: scale(1.05);
+}
+
+
+@media (max-width: 1400px){
+  .left{
+    background-color: red;
+    position: absolute;
+    width: 300px;
+    left: -100%;
+    transition: all .3s;
+  }
+
+  .right{
+    width: 100%;
+  }
+
+  .navigation-tools{
+    display: none;
+  }
+
+  .sign-up{
+    display: none;
+  }
+
+  .nav-divider{
+    display: none;
+  }
+
+  .ham-icon{
+    display: block;
+    margin-left: auto;
+  }
+
+}
+
+@media (max-width: 658px) {
+  .search-bar{
+    display: none;
+  }
+
+}
+
+
 

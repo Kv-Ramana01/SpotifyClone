@@ -22,7 +22,31 @@
   </head>
   <body>
     <div class="main-container">
-      <nav class="navigation-bar flex">
+
+      <!-- <div class="search-bar">
+          <img src="svgs/search.svg" alt="" />
+          <input type="text" placeholder="What do you want to play?" />
+          <span>|</span>
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="30"
+              height="30"
+              fill="currentColor"
+              role="img"
+              aria-hidden="true"
+            >
+              <path
+                d="M15 15.5c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2"
+              ></path>
+              <path
+                d="M1.513 9.37A1 1 0 0 1 2.291 9h19.418a1 1 0 0 1 .979 1.208l-2.339 11a1 1 0 0 1-.978.792H4.63a1 1 0 0 1-.978-.792l-2.339-11a1 1 0 0 1 .201-.837zM3.525 11l1.913 9h13.123l1.913-9zM4 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4h-2V3H6v3H4z"
+              ></path>
+            </svg>
+          </button>
+        </div> -->
+      <nav class="navigation-bar">
         <div class="logo">
           <img src="logo.svg" alt="" />
         </div>
@@ -30,6 +54,19 @@
         <div class="search-bar">
           <img src="svgs/search.svg" alt="" />
           <input type="text" placeholder="What do you want to play?" />
+          <button id="search-close-button">
+            <svg 
+            xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="30"
+              height="30"
+              fill="currentColor"
+              role="img"
+              aria-hidden="true"
+            >
+            <path d="M3.293 3.293a1 1 0 0 1 1.414 0L12 10.586l7.293-7.293a1 1 0 1 1 1.414 1.414L13.414 12l7.293 7.293a1 1 0 0 1-1.414 1.414L12 13.414l-7.293 7.293a1 1 0 0 1-1.414-1.414L10.586 12 3.293 4.707a1 1 0 0 1 0-1.414"></path>
+            </svg>
+          </button>
           <span>|</span>
           <button>
             <svg
@@ -98,7 +135,48 @@
             }
           %>
         </div>
+
+        <div class="ham-icon">
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" height="35" fill="none">
+          <path d="M4 5L20 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M4 12L20 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M4 19L20 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+        
+        
       </nav>
+
+      <div class="mobile-nav-panel">
+        <a href="">Premium</a>
+        <a href="">Support</a>
+        <a href="">Download</a>
+        <a href="">Install app</a>
+
+        <hr>
+
+        <%
+          if(username!= null){
+        %>
+
+        <a href="#">Welcome, <%= username %></a>
+        <button>
+          <a href="logout.jsp" class="mobile-nav-button">Log out</a>
+        </button>
+        <%
+          }else{
+        %>
+        <a href="signup.jsp">Sign up</a>
+        <button>
+          <a href="login.jsp" class="mobile-nav-button">Log in</a>
+        </button>
+        <%
+          }
+        %>
+      </div>
+      
       <div class="secondary-container">
         <div class="left">
           <div class="lib-title">
