@@ -6,7 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const homeButton = document.querySelector(".home-button");
   const defaultView = document.querySelector("#default-view");
   const searchView = document.querySelector("#search-view");
-  const search_closebtn = document.querySelector("#search-close-button")
+  const search_closebtn = document.querySelector("#search-close-button");
+
+  const playlist_sidebar = document.querySelector(".playlist-sidebar");
+
+  playlist_sidebar.addEventListener("click", ()=>{
+    document.querySelector(".left").classList.toggle("active");
+  })
 
   function showSearchView() {
     defaultView.classList.remove("active");

@@ -50,6 +50,14 @@
         <div class="logo">
           <img src="logo.svg" alt="" />
         </div>
+        <button class = "playlist-sidebar">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" color="#ffffff" fill="none">
+          <path d="M3 15C3 12.1911 3 10.7866 3.67412 9.77772C3.96596 9.34096 4.34096 8.96596 4.77772 8.67412C5.78661 8 7.19108 8 10 8H14C16.8089 8 18.2134 8 19.2223 8.67412C19.659 8.96596 20.034 9.34096 20.3259 9.77772C21 10.7866 21 12.1911 21 15C21 17.8089 21 19.2134 20.3259 20.2223C20.034 20.659 19.659 21.034 19.2223 21.3259C18.2134 22 16.8089 22 14 22H10C7.19108 22 5.78661 22 4.77772 21.3259C4.34096 21.034 3.96596 20.659 3.67412 20.2223C3 19.2134 3 17.8089 3 15Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M12.5 16.5C12.5 17.3284 11.8284 18 11 18C10.1716 18 9.5 17.3284 9.5 16.5C9.5 15.6716 10.1716 15 11 15C11.8284 15 12.5 15.6716 12.5 16.5ZM12.5 16.5V11.5C12.5 11.5 12.9 13.2333 14.5 13.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M19 8C18.9821 6.76022 18.89 6.05733 18.4182 5.58579C17.8321 5 16.8888 5 15.0022 5H8.99783C7.11118 5 6.16786 5 5.58176 5.58579C5.10996 6.05733 5.01794 6.76022 5 8" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M17 5C17 4.06812 17 3.60218 16.8478 3.23463C16.6448 2.74458 16.2554 2.35523 15.7654 2.15224C15.3978 2 14.9319 2 14 2H10C9.06812 2 8.60218 2 8.23463 2.15224C7.74458 2.35523 7.35523 2.74458 7.15224 3.23463C7 3.60218 7 4.06812 7 5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
         <button class="home-button"><img src="svgs/home.svg" alt="" /></button>
         <div class="search-bar">
           <img src="svgs/search.svg" alt="" />
@@ -228,6 +236,57 @@
                 <h3><a class="card-link" href="">Kufar</a></h3>
                 <p><a class="card-link" href="">Diljit Dosanjh</a>, <a class="card-link" href="">MixSingh</a>, <a class="card-link" href="">Raj Ranjodh</a></p>
               </div>
+
+
+              <!-- <div class="music-list">
+    <%
+        // 1. Database Connection
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/spotify_clone", "root", "Charlotte@1707");
+
+            // 2. Fetch all songs
+            String sql = "SELECT * FROM Songs";
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            // 3. Loop through results and create a card for each song
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String artist = rs.getString("artist");
+                String imageUrl = rs.getString("image_url");
+                String songUrl = rs.getString("song_url");
+    %>
+
+    <div class="card" data-song-url="<%= songUrl %>">
+        <div class="image">
+            <img aria-hidden="false" draggable="false" loading="lazy" src="<%= imageUrl %>" alt="<%= title %>">
+            <button class="play-button">
+                <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
+                </svg>
+            </button>
+        </div>
+        <h3><a class="card-link" href=""><%= title %></a></h3>
+        <p><a class="card-link" href=""><%= artist %></a></p>
+    </div>
+
+    <%
+            } // End of while loop
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 4. Clean up
+            if (rs != null) try { rs.close(); } catch (SQLException e) { }
+            if (stmt != null) try { stmt.close(); } catch (SQLException e) { }
+            if (conn != null) try { conn.close(); } catch (SQLException e) { }
+        }
+    %>
+</div> -->
               <div class="card">
                 <div class="image">
                   <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02a32964acd7f1f9d64ea59ff7" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i"> <button class="play-button">
