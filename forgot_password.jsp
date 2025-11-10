@@ -1,25 +1,10 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.security.MessageDigest" %>
 <%@ page import="java.math.BigInteger" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 
-<%!
-    // --- DECLARATION BLOCK ---
-    // This MUST be the *exact same function* as in your signup.jsp
-    // to ensure the hashes match.
-    public String hashPassword(String password) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
-        BigInteger number = new BigInteger(1, hash);
-        StringBuilder hexString = new StringBuilder(number.toString(16));
-        
-        while (hexString.length() < 64) {
-            hexString.insert(0, '0');
-        }
-        return hexString.toString();
-    }
-%>
 
 <% 
     if(request.getMethod().equalsIgnoreCase("POST")){
@@ -29,9 +14,7 @@
         String dbPass = "Charlotte@1707";
 
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
 
-        String hashedPasswordAttempt = hashPassword(password);
 
         Connection con = null;
         PreparedStatement ps = null;
@@ -50,21 +33,11 @@
 
             if(rs.next()){
                 //means user exists
+                session.setAttribute("reset_username", username);
+                    response.sendRedirect("forgot_password1.jsp");
 
-                String storedHashedPassword = rs.getString("password_hash");
-
-                if(storedHashedPassword.equals(hashedPasswordAttempt)){
-                    //if password matches we create a session and store their info
-
-                    session.setAttribute("username",username);
-                    session.setAttribute("user_id",rs.getInt("id"));
-
-                    response.sendRedirect("index.jsp");
-                }else{
-                    out.println("<script>alert('Incorrect password.')</script>");
-                }
             }else{
-                out.println("<script>alert('Incorrect username or password.');</script>");
+                out.println("<script>alert('User not found.');</script>");
             }
 
         }catch(Exception e){
@@ -226,32 +199,32 @@
       </div>
 
       <div class="heading">
-        <h1>Log in to your account.</h1>
+        <h1>Change your password.</h1>
       </div>
       <div class="signup-box">
-        <form action="login.jsp" method="post" class="signup-form">
+        <form action="forgot_password.jsp" method="post" class="signup-form">
           <label for="username">Username</label>
           <input type="text" name="username" placeholder="Username" required />
 
-          <label for="password">Password</label>
+          <!-- <label for="password">Password</label>
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Enter a new password"
             required
-          />
+          /> -->
 
-          <p class="fp_link"><a href="forgot_password.jsp">Forgot Password</a></p>
+          <!-- <p class="fp_link"><a href="forgot_password.jsp">Forgot Password</a></p> -->
 
-          <button type="submit" class="signup-button">Log In</button>
+          <button type="submit" class="signup-button">Find your account</button>
         </form>
         
-        <p class="login-text">
+        <!-- <p class="login-text">
           Don't have an account?
         </p>
         <p class="login">
             <a href="signup.jsp">Sign up</a>
-        </p>
+        </p> -->
       </div>
     </div>
   </body>

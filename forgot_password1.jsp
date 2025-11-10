@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.security.MessageDigest" %>
 <%@ page import="java.math.BigInteger" %>
@@ -21,63 +21,56 @@
     }
 %>
 
-<% 
-    if(request.getMethod().equalsIgnoreCase("POST")){
 
-        String dbUrl = "jdbc:mysql://localhost:3306/spotify_clone";
+<%
+if (request.getMethod().equalsIgnoreCase("POST")) {
+    String pass1 = request.getParameter("password");
+    String pass2 = request.getParameter("re-password");
+    String username = (String)session.getAttribute("reset_username");
+
+    String dbUrl = "jdbc:mysql://localhost:3306/spotify_clone";
         String dbUser = "root";
         String dbPass = "Charlotte@1707";
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    if (!pass1.equals(pass2)) {
+        request.setAttribute("error", "Passwords didn't match!");
+    } else {
 
-        String hashedPasswordAttempt = hashPassword(password);
-
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection(dbUrl,dbUser,dbPass);
 
-            String sql = "SELECT * FROM users WHERE username = ?";
+             conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
 
-            ps = con.prepareStatement(sql);
-            ps.setString(1,username);
+            String sql = "UPDATE users SET password_hash = ? WHERE username = ?";
+            stmt = conn.prepareStatement(sql);
+            String hashedPassword = hashPassword(pass1);
+            stmt.setString(1, hashedPassword); 
+            stmt.setString(2, username);
 
-            rs = ps.executeQuery();
+            int rows = stmt.executeUpdate();
 
-            if(rs.next()){
-                //means user exists
-
-                String storedHashedPassword = rs.getString("password_hash");
-
-                if(storedHashedPassword.equals(hashedPasswordAttempt)){
-                    //if password matches we create a session and store their info
-
-                    session.setAttribute("username",username);
-                    session.setAttribute("user_id",rs.getInt("id"));
-
-                    response.sendRedirect("index.jsp");
-                }else{
-                    out.println("<script>alert('Incorrect password.')</script>");
-                }
-            }else{
-                out.println("<script>alert('Incorrect username or password.');</script>");
+            if (rows > 0) {
+                response.sendRedirect("login.jsp");
+                return;
+            } else {
+                request.setAttribute("error", "User not found or update failed!");
             }
-
-        }catch(Exception e){
-            out.println("<script>alert('An error occured: "+ e.getMessage()+ "');</script>");
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(con!=null) {try{ con.close(); }catch (SQLException e){}}
-            if(rs!=null) {try{ rs.close(); }catch (SQLException e){}}
-            if(ps!=null) {try{ ps.close(); }catch (SQLException e){}}
+            request.setAttribute("error", "Database error: " + e.getMessage());
+        } finally {
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {}
+            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
+
+
+
+        response.sendRedirect("login.jsp");
     }
-
-
+}
 %>
 
 
@@ -226,32 +219,48 @@
       </div>
 
       <div class="heading">
-        <h1>Log in to your account.</h1>
+        <h1>Change your password.</h1>
       </div>
       <div class="signup-box">
-        <form action="login.jsp" method="post" class="signup-form">
-          <label for="username">Username</label>
-          <input type="text" name="username" placeholder="Username" required />
+        <form method="post" class="signup-form">
+          <!-- <label for="username">Username</label>
+          <input type="text" name="username" placeholder="Username" required /> -->
 
-          <label for="password">Password</label>
+          <label for="password">New Password*</label>
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Enter a new password"
             required
           />
+          <label for="password">Re-enter New Password*</label>
+          <input
+            type="password"
+            name="re-password"
+            placeholder="Re-Enter the password"
+            required
+          />
+    <%
+        if(request.getAttribute("error")!= null){
+    %>
+            
+            <p style="color: red;"><%= request.getAttribute("error")%></p>
 
-          <p class="fp_link"><a href="forgot_password.jsp">Forgot Password</a></p>
+    <%
+        }
+    %>
 
-          <button type="submit" class="signup-button">Log In</button>
+          <!-- <p class="fp_link"><a href="forgot_password.jsp">Forgot Password</a></p> -->
+
+          <button type="submit" class="signup-button">Change Password</button>
         </form>
         
-        <p class="login-text">
+        <!-- <p class="login-text">
           Don't have an account?
         </p>
         <p class="login">
             <a href="signup.jsp">Sign up</a>
-        </p>
+        </p> -->
       </div>
     </div>
   </body>
