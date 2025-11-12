@@ -96,16 +96,16 @@
           </button>
         </div>
         <div class="navigation-tools">
-          <a href="">Premium</a>
-          <a href="">Support</a>
-          <a href="">Download</a>
+          <a href="https://www.spotify.com/in-en/premium/">Premium</a>
+          <a href="https://support.spotify.com/">Support</a>
+          <a href="https://www.spotify.com/in-en/download/linux/">Download</a>
         </div>
         <div class="nav-divider">
           <span>|</span>
         </div>
 
         <div class="sign-up">
-          <a class="install" href=""
+          <a class="install" href="https://open.spotify.com/download"
             ><svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -193,6 +193,10 @@
               <img src="svgs/plusicon.svg" alt="" />
             </button>
           </div>
+          <% 
+    // LOGIC: If user is GUEST, show the "Onboarding Cards"
+          if (username == null) { 
+          %>
           <div class="playlist-card">
             <p>Create your first playlist</p>
             <span>It's easy, we'll help you</span>
@@ -203,6 +207,71 @@
             <span>We'll keep you updated on new episodes</span>
             <button class="podcast-button">Browse Podcasts</button>
           </div>
+
+
+          <% 
+          } else { 
+    // LOGIC: If user is LOGGED IN, show their actual Playlist List
+          %>
+        <div class="user-playlists">
+    <%
+        if (username != null) {
+            Connection pConn = null;
+            PreparedStatement pStmt = null;
+            ResultSet pRs = null;
+            
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                pConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/spotify_clone", "root", "Charlotte@1707");
+                
+                // 1. Get User ID
+                String uSql = "SELECT id FROM users WHERE username = ?";
+                pStmt = pConn.prepareStatement(uSql);
+                pStmt.setString(1, username);
+                pRs = pStmt.executeQuery();
+                
+                int uId = -1;
+                if(pRs.next()) {
+                    uId = pRs.getInt("id");
+                }
+                pStmt.close();
+                
+                // 2. Fetch Playlists
+                if(uId != -1){
+                    String plSql = "SELECT * FROM PLaylists WHERE user_id = ?";
+                    pStmt = pConn.prepareStatement(plSql);
+                    pStmt.setInt(1, uId);
+                    pRs = pStmt.executeQuery();
+                    
+                    boolean foundAny = false;
+                    while(pRs.next()){
+                        foundAny = true;
+                        String pName = pRs.getString("name");
+                        int pId = pRs.getInt("playlist_id"); // <--- CRITICAL: Get the ID
+    %>
+                        <div class="playlist-item" data-name="<%= pName %>" data-playlist-id="<%= pId %>">
+                            <img src="https://misc.scdn.co/liked-songs/liked-songs-64.png" alt="">
+                            <div class="text">
+                                <h4><%= pName %></h4>
+                                <span>Playlist • <%= username %></span>
+                            </div>
+                        </div>
+    <%
+                    }
+                    if (!foundAny) {
+                        out.println("<p style='color:gray; font-size:12px; padding:10px;'>No playlists yet.</p>");
+                    }
+                }
+            } catch(Exception e){ 
+                e.printStackTrace(); 
+            }
+        }
+    %>
+</div>
+
+<% 
+    } 
+  %>
           <div class="links">
             <div class="first">
               <a href="">Legal</a>
@@ -223,7 +292,7 @@
             <h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Trending songs</h2>
             </div>
 
-            <div class="music-list">
+            <!-- <div class="music-list">
               <div class="card">
                 <div class="image">
                   <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02e60418359b299f1e237ee7da" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i">
@@ -235,12 +304,10 @@
                 </div>
                 <h3><a class="card-link" href="">Kufar</a></h3>
                 <p><a class="card-link" href="">Diljit Dosanjh</a>, <a class="card-link" href="">MixSingh</a>, <a class="card-link" href="">Raj Ranjodh</a></p>
-              </div>
+              </div> -->
 
-
-              <!-- <div class="music-list">
+<div class="music-list">
     <%
-        // 1. Database Connection
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -249,20 +316,20 @@
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/spotify_clone", "root", "Charlotte@1707");
 
-            // 2. Fetch all songs
-            String sql = "SELECT * FROM Songs";
+            // 1. FETCH song_id ALSO
+            String sql = "SELECT song_id, title, artist, image_url, song_url FROM Songs";
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
 
-            // 3. Loop through results and create a card for each song
             while (rs.next()) {
+                int songId = rs.getInt("song_id"); // <--- Get the ID
                 String title = rs.getString("title");
                 String artist = rs.getString("artist");
                 String imageUrl = rs.getString("image_url");
                 String songUrl = rs.getString("song_url");
     %>
 
-    <div class="card" data-song-url="<%= songUrl %>">
+    <div class="card" data-song-url="<%= songUrl %>" data-song-id="<%= songId %>">
         <div class="image">
             <img aria-hidden="false" draggable="false" loading="lazy" src="<%= imageUrl %>" alt="<%= title %>">
             <button class="play-button">
@@ -271,25 +338,24 @@
                 </svg>
             </button>
         </div>
-        <h3><a class="card-link" href=""><%= title %></a></h3>
-        <p><a class="card-link" href=""><%= artist %></a></p>
+        <h3><a class="card-link" href="#"><%= title %></a></h3>
+        <p><a class="card-link" href="#"><%= artist %></a></p>
     </div>
 
     <%
-            } // End of while loop
+            } 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // 4. Clean up
             if (rs != null) try { rs.close(); } catch (SQLException e) { }
             if (stmt != null) try { stmt.close(); } catch (SQLException e) { }
             if (conn != null) try { conn.close(); } catch (SQLException e) { }
         }
     %>
-</div> -->
-              <div class="card">
-                <div class="image">
-                  <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02a32964acd7f1f9d64ea59ff7" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i"> <button class="play-button">
+</div>
+              <!-- <div class="card">
+                <div class="image"> -->
+                  <!-- <img aria-hidden="false" draggable="false" loading="lazy" src="https://i.scdn.co/image/ab67616d00001e02a32964acd7f1f9d64ea59ff7" data-testid="card-image" alt="" class="LBM25IAoFtd0wh7k3EGM Z3N2sU3PRuY4NgvdEz55 DlkUu3oBOxXLc2LtOd3N PgTMmU2Gn7AESFMYhw4i"> <button class="play-button">
                     <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24">
                       <path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path>
                   </svg>
@@ -402,79 +468,175 @@
                 <p>2025 <a class="card-link" href="">Kobe Mane</a>, <a class="card-link" href="">shvnxe</a></p>
               </div>
               
-            </div>
+            </div> -->
           </div>
 
           <div id="search-view" class="main-content-view">
-            <nav class="filter-nav">
-              <button class="filter-button active" data-target="all-content">
-                All
-              </button>
-              <button class="filter-button" data-target="artists-content">
-                Artists
-              </button>
-              <button class="filter-button" data-target="songs-content">
-                Songs
-              </button>
-              <button class="filter-button" data-target="profiles-content">
-                Profiles
-              </button>
-            </nav>
+    
+    <nav class="filter-nav" id="search-filter-nav">
+        <button class="filter-button active" data-type="all">All</button>
+        <button class="filter-button" data-type="artist">Artists</button>
+        <button class="filter-button" data-type="song">Songs</button>
+        </nav>
 
-            <div class="content-area">
-              <div id="all-content" class="content-section active">
-                <h3>Top Result</h3>
-                <p>( 'Top Result' goes here...)</p>
-                <hr />
-                <h3>Artists</h3>
-                <p>( 'Artists' row goes here...)</p>
-                <hr />
-                <h3>Songs</h3>
-                <p>( 'Songs' list goes here...)</p>
-              </div>
-              <div id="artists-content" class="content-section">
-                <h3>Artists</h3>
-                <p>artists row---></p>
-              </div>
-              <div id="songs-content" class="content-section">
-                <h3>Songs</h3>
-                <p>songs row go here --></p>
-              </div>
-              <div id="profiles-content" class="content-section">
-                <h3>Profiles</h3>
-                <p>profiles row go here</p>
-              </div>
+    <div id="search-browse-content" class="content-area">
+        <h3 style="color: white; margin-bottom: 20px;">Browse All</h3>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div style="width: 180px; height: 180px; background-color: rgb(220, 20, 140); border-radius: 8px; padding: 20px; font-weight: bold; font-size: 1.5rem; color: white;">Pop</div>
+            <div style="width: 180px; height: 180px; background-color: rgb(39, 133, 106); border-radius: 8px; padding: 20px; font-weight: bold; font-size: 1.5rem; color: white;">Hip-Hop</div>
+            <div style="width: 180px; height: 180px; background-color: rgb(30, 50, 100); border-radius: 8px; padding: 20px; font-weight: bold; font-size: 1.5rem; color: white;">Rock</div>
+        </div>
+    </div>
+
+    <div id="search-results-container" class="playlist-songs-container" style="display: none; padding-top: 20px;">
+        </div>
+
+</div>
+
+          <div id="playlist-view" class="main-content-view">
+            
+            <div class="playlist-header">
+                <div class="playlist-cover">
+                    <img src="https://misc.scdn.co/liked-songs/liked-songs-300.png" id="playlist-header-img" alt="">
+                </div>
+                <div class="playlist-details">
+                    <span>Playlist</span>
+                    <h1 id="playlist-header-title">My Playlist</h1>
+                    <p id="playlist-header-meta">Username • 0 songs</p>
+                </div>
+            </div>
+
+            <div class="playlist-actions">
+                <button class="action-btn-play">
+                    <svg role="img" height="28" width="28" viewBox="0 0 24 24" fill="black"><path d="M7.05 3.606l13.49 7.788a.7.7 0 010 1.212L7.05 20.394A.7.7 0 016 19.788V4.212a.7.7 0 011.05-.606z"></path></svg>
+                </button>
+            </div>
+
+            <div class="playlist-songs-container">
+                <div class="song-header-row">
+                    <div class="col-hash">#</div>
+                    <div class="col-title">Title</div>
+                    <div class="col-album">Album</div>
+                    <div class="col-clock"><svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8z"></path><path d="M8 3.25a.75.75 0 01.75.75v3.25H11a.75.75 0 010 1.5H7.25V4A.75.75 0 018 3.25z"></path></svg></div>
+                </div>
+                <hr class="divider">
+                
+                <div id="playlist-songs-list">
+                    <div class="song-row">
+                        <div class="col-hash">1</div>
+                        <div class="col-title">
+                            <img src="https://i.scdn.co/image/ab67616d00001e02e60418359b299f1e237ee7da" alt="">
+                            <div class="song-name-artist">
+                                <span class="s-name">Kufar</span>
+                                <span class="s-artist">Diljit Dosanjh</span>
+                            </div>
+                        </div>
+                        <div class="col-album">Aura</div>
+                        <div class="col-clock">3:45</div>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
       </div>
 
-      <%
-
-      if(username == null){
-
+     <% 
+        if (username == null) { 
       %>
+      
       <footer>
         <div>
           <div><p>Preview of Spotify</p></div>
           <div>
-            <span
-              >Sign up to get unlimited songs and podcasts with occasional ads.
-              No credit card needed.</span
-            >
+            <span>Sign up to get unlimited songs and podcasts with occasional ads. No credit card needed.</span>
           </div>
         </div>
-        <!-- <p>This page was loaded on: <%= new java.util.Date() %></p> -->
         <button><a href="signup.jsp">Sign up</a></button>
       </footer>
 
       <% 
-        }
+        } else { 
+        // LOGIC: If the user IS logged in, show the Music Player
+      %>
 
+      <div class="now-playing-bar">
+          
+          <div class="song-info">
+              <img id="current-song-img" src="https://i.scdn.co/image/ab67616d00001e02e60418359b299f1e237ee7da" alt="">
+              <div class="song-text">
+                  <h4 id="current-song-title">Select a song</h4>
+                  <p id="current-song-artist">To start playing</p>
+              </div>
+              <button class="like-btn">
+                  <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="none" stroke="#b3b3b3" stroke-width="1.5"><path d="M1.69 2.9a4.14 4.14 0 00-.36 4.96l6.69 7.01 6.7-7.01a4.14 4.14 0 00-6.34-5.32L8 3.08l-.38-.54A4.14 4.14 0 001.69 2.9z"></path></svg>
+              </button>
+          </div>
+
+          <div class="player-controls">
+              <div class="control-buttons">
+                  <button class="control-btn" title="Shuffle">
+                      <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.151.922a.75.75 0 10-1.06 1.06L13.109 3H11.16a3.75 3.75 0 00-2.873 1.34l-6.173 7.356A2.25 2.25 0 01.39 12.5H0V14h.391a3.75 3.75 0 002.873-1.34l6.173-7.356a2.25 2.25 0 011.724-.804h1.947l-1.017 1.018a.75.75 0 001.06 1.06L15.98 3.75 13.15.922zM.391 3.5H0V2h.391c1.109 0 2.16.49 2.873 1.34L4.89 5.277l-.979 1.167-1.796-2.14A2.25 2.25 0 00.39 3.5z"></path></svg>
+                  </button>
+                  <button class="control-btn" title="Previous">
+                      <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.3 1a.7.7 0 01.7.7v5.15l9.95-5.744a.7.7 0 011.05.606v12.575a.7.7 0 01-1.05.607L4 9.149V14.3a.7.7 0 01-.7.7H1.7a.7.7 0 01-.7-.7V1.7a.7.7 0 01.7-.7h1.6z"></path></svg>
+                  </button>
+
+                  <button class="play-pause-btn" id="footer-play-btn">
+                      <svg id="pause-icon" style="display: none;" role="img" height="32" width="32" viewBox="0 0 16 16" fill="currentColor"><path d="M2.7 1a.7.7 0 00-.7.7v12.6a.7.7 0 00.7.7h2.6a.7.7 0 00.7-.7V1.7a.7.7 0 00-.7-.7H2.7zm8 0a.7.7 0 00-.7.7v12.6a.7.7 0 00.7.7h2.6a.7.7 0 00.7-.7V1.7a.7.7 0 00-.7-.7h-2.6z"></path></svg>
+                      <svg id="play-icon" role="img" height="32" width="32" viewBox="0 0 16 16" fill="currentColor"><path d="M3 1.713a.7.7 0 011.05-.607l10.89 6.288a.7.7 0 010 1.212L4.05 14.894A.7.7 0 013 14.288V1.713z"></path></svg>
+                  </button>
+
+                  <button class="control-btn" title="Next">
+                      <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.7 1a.7.7 0 00-.7.7v5.15L2.05 1.107A.7.7 0 001 1.712v12.575a.7.7 0 001.05.607L12 9.149V14.3a.7.7 0 00.7.7h1.6a.7.7 0 00.7-.7V1.7a.7.7 0 00-.7-.7h-1.6z"></path></svg>
+                  </button>
+                  <button class="control-btn" title="Repeat">
+                      <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M0 4.75A3.75 3.75 0 013.75 1h8.5A3.75 3.75 0 0116 4.75v5a3.75 3.75 0 01-3.75 3.75H9.81l1.018 1.018a.75.75 0 11-1.06 1.06L6.939 12.75l2.829-2.828a.75.75 0 111.06 1.06L9.81 12h2.44A2.25 2.25 0 0014.5 9.75v-5A2.25 2.25 0 0012.25 2.5h-8.5A2.25 2.25 0 001.5 4.75v5A2.25 2.25 0 003.75 12h5a.75.75 0 010 1.5h-5A3.75 3.75 0 010 9.75v-5z"></path></svg>
+                  </button>
+              </div>
+              <div class="playback-bar">
+                  <span class="time current">0:00</span>
+                  <input type="range" class="progress-bar" value="0" max="100">
+                  <span class="time total">0:00</span>
+              </div>
+          </div>
+
+         <div class="volume-controls">
+    <button class="control-btn" id="volume-btn">
+        <svg id="volume-icon" role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M9.741.85a.75.75 0 0 1 .375.65v13a.75.75 0 0 1-1.125.65l-6.925-4a3.642 3.642 0 0 1-1.33-4.967 3.639 3.639 0 0 1 1.33-4.967l6.925-4a.75.75 0 0 1 .75 0zm-6.924 5.3a2.139 2.139 0 0 0 0 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 0 1 0 4.88z"></path>
+            <path d="M11.5 13.614a5.752 5.752 0 0 0 0-11.228v1.55a4.252 4.252 0 0 1 0 8.127v1.55z"></path>
+        </svg>
+    </button>
+    <input type="range" class="progress-bar volume-slider" value="100" max="100">
+</div>
+      </div>
+
+      <% 
+        } 
       %>
     </div>
+    <div id="song-context-menu" class="context-menu">
+    <div class="menu-option header">Add to Playlist:</div>
+    <hr>
+    <div id="context-playlist-list"></div>
+</div>
+    <div id="playlist-modal" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Create Playlist</h3>
+    <form action="create_playlist.jsp" method="POST">
+      <input type="text" name="playlist_name" placeholder="My Playlist #1" required autocomplete="off">
+      <div class="modal-buttons">
+        <button type="button" id="close-modal-btn">Cancel</button>
+        <button type="submit">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+    <audio id="music-player" src=""></audio>
+       <input type="hidden" id="login-status" value="<%= username != null %>">
+    <script src="script.js"></script>
   </body>
-  <script src="script.js"></script>
+
 </html>
 
 <!-- <nav class="filter-nav">
