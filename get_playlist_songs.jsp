@@ -10,7 +10,6 @@
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/spotify_clone", "root", "Charlotte@1707");
 
-            // JOIN Query: Get Song Details for a specific Playlist
             String sql = "SELECT s.song_id, s.title, s.artist, s.image_url, s.song_url " +
                          "FROM Songs s " +
                          "JOIN Playlist_Songs ps ON s.song_id = ps.song_id " +
@@ -30,7 +29,7 @@
                 String artist = rs.getString("artist");
                 String img = rs.getString("image_url");
                 String url = rs.getString("song_url");
-                // We wrap the row in 'card' class or add attributes so our player can read it later
+                int songId = rs.getInt("song_id");
 %>
                 <div class="song-row playlist-track" 
                      data-song-url="<%= url %>" 
@@ -46,7 +45,20 @@
                             <span class="s-artist"><%= artist %></span>
                         </div>
                     </div>
-                    <div class="col-album">Single</div> <div class="col-clock">--:--</div> </div>
+                    <div class="col-album">Single</div>
+                    <div class="col-clock">--:--</div>
+                    
+                    <div class="col-action">
+                        <button class="delete-track-btn" 
+                                data-song-id="<%= songId %>" 
+                                data-playlist-id="<%= playlistId %>"
+                                title="Remove from Playlist">
+                            <svg role="img" height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M5.25 3v-.25a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 .75.75V3h4.25c.414 0 .75.336.75.75v1a.75.75 0 0 1-.75.75H1.25A.75.75 0 0 1 .5 4.75v-1c0-.414.336-.75.75-.75H5.25zm.75.75h4v-1h-4v1zM2.75 6.5h10.5a.75.75 0 0 1 .75.75v7a1.75 1.75 0 0 1-1.75 1.75H3.75A1.75 1.75 0 0 1 2 14.25v-7a.75.75 0 0 1 .75-.75z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
 <%
             }
             

@@ -227,7 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.text())
             .then(html => {
                 playlistSongsList.innerHTML = html;
-                attachClickToPlaylistTracks(); // Make them playable (See Step 3)
+                attachClickToPlaylistTracks(); // Make them playable
+                attachDeleteListeners();       // <--- ADD THIS LINE
             })
             .catch(err => console.error("Error fetching playlist:", err));
       }
@@ -390,6 +391,37 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollTimer = setTimeout(() => {
           rightContainer.classList.remove("is-scrolling");
         }, 1000); 
+      });
+  }
+
+  // Helper: Attach listeners to delete buttons
+  function attachDeleteListeners() {
+      const deleteBtns = document.querySelectorAll(".delete-track-btn");
+      
+      deleteBtns.forEach(btn => {
+          btn.addEventListener("click", (e) => {
+              e.stopPropagation(); // Prevent song from playing
+              
+              const sId = btn.getAttribute("data-song-id");
+              const pId = btn.getAttribute("data-playlist-id");
+              const row = btn.closest(".song-row");
+
+              // Optional: Confirm dialog
+              // if(!confirm("Remove this song?")) return;
+
+              fetch(`delete_from_playlist.jsp?song_id=${sId}&playlist_id=${pId}`)
+                .then(response => response.text())
+                .then(data => {
+                    if (data.trim() === "success") {
+                        // Remove the row visually
+                        row.remove();
+                        // Optional: Re-number the list # logic here
+                    } else {
+                        alert("Error deleting song.");
+                        console.error(data);
+                    }
+                });
+          });
       });
   }
 
